@@ -1,0 +1,70 @@
+<head>
+  <meta charset="utf-8">
+  <title>AngularHttp</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<h1>{{title}}</h1>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Pessoas</li>
+  </ol>
+</nav>
+<div class="container">
+  <div class="card list-pessoa">
+    <h5 class="card-header">Lista de pessoa</h5>
+    <div class="card-body">
+      <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pessoa of pessoas">
+              <td>{{pessoa.id}}</td>
+              <td>{{pessoa.nome}}</td>  
+              <td>
+                <button type="button" class="btn btn-warning btn-sm" (click)="editPessoa(pessoa)">Editar</button>
+                <button type="button" class="btn btn-danger btn-sm ml-1" (click)="deletePessoa(pessoa)">Deletar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+  <!--<button (click)="getPessoaById()">Obter Somente 1</button> -->
+
+
+  
+  <div class="card add-car">
+    <h5 class="card-header">Adicionar/Atualizar pessoa</h5>
+    <div class="card-body">
+        <form id="add-form" (ngSubmit)="f.form.valid && savePessoa(f)" #f="ngForm" novalidate>
+          <div class="form-group">
+              <label for="model">Nome</label>
+              <input type="text" [(ngModel)]="pessoa.nome" id="nome" name="nome" #model="ngModel" required class="form-control" [ngClass]="{ 'is-invalid': f.submitted && model.invalid }" placeholder="Digite o Nome">
+              <div *ngIf="f.submitted && model.invalid" class="invalid-feedback">
+                  <div *ngIf="model.errors">Nome é obrigatório</div>
+              </div>
+          </div>
+         <button type="submit" class="btn btn-primary btn-add-car">Salvar</button>
+          <button type="reset" class="btn btn-secondary btn-add-car" (click)="cleanForm(f)">Cancelar</button>
+        </form>
+    </div>
+  </div>
+</div>
+
+
+
+<nav>
+  <a routerLink="/">Index</a> <br>
+  <a routerLink="/home">Home </a><br>
+  <a routerLink="/login">Login </a><br>
+  <a routerLink="/sobre">Sobre</a><br>
+</nav>
+<router-outlet></router-outlet>
